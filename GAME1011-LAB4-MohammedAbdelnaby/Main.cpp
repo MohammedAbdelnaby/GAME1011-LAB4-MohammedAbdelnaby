@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <time.h>
 using namespace std;
 
 void reverseString(string string);
@@ -10,50 +11,64 @@ int partition(int array[], int low, int high);
 
 int main()
 {
+	srand((unsigned)time(NULL));
 	unsigned short int userInput;
 	string a;
 	string stringInput;
-	int test[5] = { 3,4 ,5,1,2 };
-	cout << "Choose one of the options:" << endl;
-	cout << "1) Palindrome" << endl;
-	cout << "2) Quicksort" << endl;
-	cout << "3) Reverse" << endl;
-	cout << "4) Exit" << endl;
-	cin >> userInput;
-	system("CLS");
-	switch (userInput)
+	int* sortlist;
+	while (true)
 	{
-	case 1:
-		cout << "Enter a word that you want to check if its a palindrome: ";
-		cin >> stringInput;
-		if (palindromeString(stringInput, 0, stringInput.size() - 1))
+		string stringInput = "";
+		userInput = 0;
+		cout << "Choose one of the options:" << endl;
+		cout << "1) Palindrome" << endl;
+		cout << "2) Quicksort" << endl;
+		cout << "3) Reverse" << endl;
+		cout << "4) Exit" << endl;
+		cin >> userInput;
+		system("CLS");
+		switch (userInput)
 		{
-			cout << stringInput << " is a palindrome" << endl;
+		case 1:
+			cout << "Enter a word that you want to check if its a palindrome: ";
+			cin >> stringInput;
+			if (palindromeString(stringInput, 0, stringInput.size() - 1))
+			{
+				cout << stringInput << " is a palindrome" << endl;
+			}
+			else
+			{
+				cout << stringInput << " is NOT a palindrome" << endl;
+			}
+			break;
+		case 2:
+			cout << "Enter the size of the list you want to sort: " << endl;
+			cin >> userInput;
+			sortlist = new int[userInput];
+			for (int i = 0; i < userInput; i++)
+			{
+				sortlist[i] = (1 + rand() % 100);
+			}
+			quickSort(sortlist, 0, userInput - 1);
+			for (int i = 0; i < userInput; i++)
+			{
+				cout << sortlist[i] << " ";
+			}
+			break;
+		case 3:
+			cout << "Enter a string to be reversed:" << endl;
+			cin >> stringInput;
+			reverseString(stringInput);
+			break;
+		case 4:
+			return 0;
+		default:
+			break;
 		}
-		else
-		{
-			cout << stringInput << " is NOT a palindrome" << endl;
-		}
-		break;
-	case 2:
-		cout << "Enter a list of numbers(space between each number): " << endl;
-		quickSort(test, 0, 5 - 1);
-		for (int i = 0; i < 5; i++)
-		{
-			cout << test[i] << " ";
-		}
-		break;
-	case 3:
-		cout << "Enter a string to be reversed:" << endl;
-		cin >> stringInput;
-		reverseString(stringInput);
-		break;
-	case 4:
-		return 0;
-	default:
-		break;
+		cout << endl;
+		system("pause");
+		system("CLS");
 	}
-	return 0;
 }
 
 void reverseString(string stringp)
